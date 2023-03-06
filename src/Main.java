@@ -46,23 +46,32 @@ public class Main {
   }
 
   public static Map<String, Integer> calculateResult(File inputFile) throws IOException {
-    BufferedReader br = new BufferedReader(new FileReader(inputFile));
+    BufferedReader br = new BufferedReader(new FileReader(inputFile));  // ошибка, если файла нет
 
     Map<String, Integer> result = new HashMap<>();
-    int n = Integer.parseInt(br.readLine());
-    for (int i = 0; i < n; ++i) {
-      String line = br.readLine();
-      int spaceIndex = line.indexOf(' ');
-      String name = line.substring(0, spaceIndex);
-      String voiceString = line.substring(spaceIndex + 1);
-      int voice = Integer.parseInt(voiceString);
-      if (!result.containsKey(name)) {  // создаём счётчик для нового пользователя
-        result.put(name, 0);
-      }
+    try {
+      int n = Integer.parseInt(br.readLine());  // ошибка, только если файл не правильный
+      for (int i = 0; i < n; ++i) {
+        String line = br.readLine();
+        int spaceIndex = line.indexOf(' '); // ошибка, если файл не правильный
+        String name = line.substring(0, spaceIndex);
+        String voiceString = line.substring(spaceIndex + 1);
+        int voice = Integer.parseInt(voiceString);  // ошибка, если файл не правильный
+        if (!result.containsKey(name)) {  // создаём счётчик для нового пользователя
+          result.put(name, 0);
+        }
 //      result.put(name, (result.get(name) + 1)); // увеличивает счётчик на 1
-      result.put(name, (result.get(name) + voice)); // увеличиваем на количестов голосов
+        result.put(name, (result.get(name) + voice)); // увеличиваем на количестов голосов
+      }
+      br.close();
+    } catch (FileNotFoundException e){
+      System.err.println("Файл не найден: " + e.getMessage());
+    } catch (IndexOutOfBoundsException e){
+      // если при поиске пробела получили -1 и подставили его в substring
+      System.err.println("Ошибка в файле: в строке нет пробела между именем и глосами");
+    } catch (NumberFormatException e){
+      System.err.println("Ошибка в файле: количество голосов записанно не верно: " + e.getMessage());
     }
-    br.close();
     return result;
   }
 
