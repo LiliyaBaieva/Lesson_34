@@ -56,9 +56,13 @@ public class Main {
 //      System.out.println(entry.getKey() + " " + entry.getValue());
 //    }
 
+    File outputFile = new File("res/out.txt");
+    FileWriter outputFileWriter = new FileWriter(outputFile); // не забыть закрыть
     for(String name : result.keySet()){
-      System.out.println(name + ' ' + result.get(name));
+//      System.out.println(name + ' ' + result.get(name));  // выводим на экран
+      outputFileWriter.write(name + ' ' + result.get(name) + "\n"); // не забыть "\n" , иначе в одну строчку
     }
+    outputFileWriter.close();
 
   }
 
