@@ -76,11 +76,15 @@ public class Main {
   }
 
   public static void printResult (Map<String, Integer> result, File outputFile) throws IOException {
-    FileWriter outputFileWriter = new FileWriter(outputFile); // не забыть закрыть
-    for (String name : result.keySet()) {
+    try{
+      FileWriter outputFileWriter = new FileWriter(outputFile); // не забыть закрыть
+      for (String name : result.keySet()) {
 //      System.out.println(name + ' ' + result.get(name));  // выводим на экран
-      outputFileWriter.write(name + ' ' + result.get(name) + "\n"); // не забыть "\n" , иначе в одну строчку
+        outputFileWriter.write(name + ' ' + result.get(name) + "\n"); // не забыть "\n" , иначе в одну строчку
+      }
+      outputFileWriter.close();
+    } catch (FileNotFoundException e){
+      System.err.println("Не найденна дериктория для выходного файла: " + e.getMessage());
     }
-    outputFileWriter.close();
   }
 }
