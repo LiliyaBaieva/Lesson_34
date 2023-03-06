@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
   // Как известно, в США президент выбирается не прямым голосованием, а путем двухуровневого
@@ -33,14 +35,20 @@ public class Main {
   public static void main(String[] args) throws IOException {
     BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
 
-    int n = Integer.parseInt(inputReader.readLine());
+    Map<String, Integer> result = new HashMap<>();
 
+    int n = Integer.parseInt(inputReader.readLine());
     for(int i = 0; i < n; ++i){
       String line = inputReader.readLine();
       int spaceIndex = line.indexOf(' ');
       String name = line.substring(0, spaceIndex);
       String voiceString = line.substring(spaceIndex+1);
       int voice = Integer.parseInt(voiceString);
+      if(!result.containsKey(name)){  // создаём счётчик для нового пользователя
+        result.put(name, 0);
+      }
+//      result.put(name, (result.get(name) + 1)); // увеличивает счётчик на 1
+      result.put(name, (result.get(name) + voice)); // увеличиваем на количестов голосов
     }
 
   }
