@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,13 +31,15 @@ public class Main {
   // McCain 16
   // Obama 17
   public static void main(String[] args) throws IOException {
-    BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+    File inputFile = new File("res/in.txt");
+
+    BufferedReader br = new BufferedReader(new FileReader(inputFile));
 
     Map<String, Integer> result = new HashMap<>();
 
-    int n = Integer.parseInt(inputReader.readLine());
+    int n = Integer.parseInt(br.readLine());
     for(int i = 0; i < n; ++i){
-      String line = inputReader.readLine();
+      String line = br.readLine();
       int spaceIndex = line.indexOf(' ');
       String name = line.substring(0, spaceIndex);
       String voiceString = line.substring(spaceIndex + 1);
@@ -50,6 +50,7 @@ public class Main {
 //      result.put(name, (result.get(name) + 1)); // увеличивает счётчик на 1
       result.put(name, (result.get(name) + voice)); // увеличиваем на количестов голосов
     }
+    br.close();
 
 //    for(Map.Entry<String, Integer> entry : result.entrySet()){  // длинная непонятная версия
 //      System.out.println(entry.getKey() + " " + entry.getValue());
