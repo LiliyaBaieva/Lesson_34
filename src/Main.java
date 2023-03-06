@@ -51,8 +51,12 @@ public class Main {
       result.put(name, (result.get(name) + voice)); // увеличиваем на количестов голосов
     }
 
-    for(Map.Entry<String, Integer> entry : result.entrySet()){
-      System.out.println(entry.getKey() + " " + entry.getValue());
+//    for(Map.Entry<String, Integer> entry : result.entrySet()){  // длинная непонятная версия
+//      System.out.println(entry.getKey() + " " + entry.getValue());
+//    }
+
+    for(String name : result.keySet()){
+      System.out.println(name + ' ' + result.get(name));
     }
 
   }
