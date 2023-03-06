@@ -33,10 +33,25 @@ public class Main {
   public static void main(String[] args) throws IOException {
     File inputFile = new File("res/in.txt");
 
+    Map<String, Integer> result = calculateResult(inputFile);
+
+//    for(Map.Entry<String, Integer> entry : result.entrySet()){  // длинная непонятная версия
+//      System.out.println(entry.getKey() + " " + entry.getValue());
+//    }
+
+    File outputFile = new File("res/out.txt");
+    FileWriter outputFileWriter = new FileWriter(outputFile); // не забыть закрыть
+    for(String name : result.keySet()){
+//      System.out.println(name + ' ' + result.get(name));  // выводим на экран
+      outputFileWriter.write(name + ' ' + result.get(name) + "\n"); // не забыть "\n" , иначе в одну строчку
+    }
+    outputFileWriter.close();
+  }
+
+  public static Map<String, Integer> calculateResult (File inputFile) throws IOException {
     BufferedReader br = new BufferedReader(new FileReader(inputFile));
 
     Map<String, Integer> result = new HashMap<>();
-
     int n = Integer.parseInt(br.readLine());
     for(int i = 0; i < n; ++i){
       String line = br.readLine();
@@ -51,19 +66,7 @@ public class Main {
       result.put(name, (result.get(name) + voice)); // увеличиваем на количестов голосов
     }
     br.close();
-
-//    for(Map.Entry<String, Integer> entry : result.entrySet()){  // длинная непонятная версия
-//      System.out.println(entry.getKey() + " " + entry.getValue());
-//    }
-
-    File outputFile = new File("res/out.txt");
-    FileWriter outputFileWriter = new FileWriter(outputFile); // не забыть закрыть
-    for(String name : result.keySet()){
-//      System.out.println(name + ' ' + result.get(name));  // выводим на экран
-      outputFileWriter.write(name + ' ' + result.get(name) + "\n"); // не забыть "\n" , иначе в одну строчку
-    }
-    outputFileWriter.close();
-
+    return result;
   }
 
 
