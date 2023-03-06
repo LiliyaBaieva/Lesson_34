@@ -22,12 +22,12 @@ public class Main {
   // определите число отданных за него голосов.
 
   // Пример ввода:
-  // 5
-  // McCain 10
-  // McCain 5
-  // Obama 9
-  // Obama 8
-  // McCain 1
+//5
+//McCain 10
+//McCain 5
+//Obama 9
+//Obama 8
+//McCain 1
 
   // Пример вывода:
   // McCain 16
@@ -42,13 +42,17 @@ public class Main {
       String line = inputReader.readLine();
       int spaceIndex = line.indexOf(' ');
       String name = line.substring(0, spaceIndex);
-      String voiceString = line.substring(spaceIndex+1);
+      String voiceString = line.substring(spaceIndex + 1);
       int voice = Integer.parseInt(voiceString);
       if(!result.containsKey(name)){  // создаём счётчик для нового пользователя
         result.put(name, 0);
       }
 //      result.put(name, (result.get(name) + 1)); // увеличивает счётчик на 1
       result.put(name, (result.get(name) + voice)); // увеличиваем на количестов голосов
+    }
+
+    for(Map.Entry<String, Integer> entry : result.entrySet()){
+      System.out.println(entry.getKey() + " " + entry.getValue());
     }
 
   }
