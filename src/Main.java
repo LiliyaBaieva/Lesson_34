@@ -40,26 +40,23 @@ public class Main {
 //    }
 
     File outputFile = new File("res/out.txt");
-    FileWriter outputFileWriter = new FileWriter(outputFile); // не забыть закрыть
-    for(String name : result.keySet()){
-//      System.out.println(name + ' ' + result.get(name));  // выводим на экран
-      outputFileWriter.write(name + ' ' + result.get(name) + "\n"); // не забыть "\n" , иначе в одну строчку
-    }
-    outputFileWriter.close();
+
+    printResult (result, outputFile);
+
   }
 
-  public static Map<String, Integer> calculateResult (File inputFile) throws IOException {
+  public static Map<String, Integer> calculateResult(File inputFile) throws IOException {
     BufferedReader br = new BufferedReader(new FileReader(inputFile));
 
     Map<String, Integer> result = new HashMap<>();
     int n = Integer.parseInt(br.readLine());
-    for(int i = 0; i < n; ++i){
+    for (int i = 0; i < n; ++i) {
       String line = br.readLine();
       int spaceIndex = line.indexOf(' ');
       String name = line.substring(0, spaceIndex);
       String voiceString = line.substring(spaceIndex + 1);
       int voice = Integer.parseInt(voiceString);
-      if(!result.containsKey(name)){  // создаём счётчик для нового пользователя
+      if (!result.containsKey(name)) {  // создаём счётчик для нового пользователя
         result.put(name, 0);
       }
 //      result.put(name, (result.get(name) + 1)); // увеличивает счётчик на 1
@@ -69,25 +66,12 @@ public class Main {
     return result;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  public static void printResult (Map<String, Integer> result, File outputFile) throws IOException {
+    FileWriter outputFileWriter = new FileWriter(outputFile); // не забыть закрыть
+    for (String name : result.keySet()) {
+//      System.out.println(name + ' ' + result.get(name));  // выводим на экран
+      outputFileWriter.write(name + ' ' + result.get(name) + "\n"); // не забыть "\n" , иначе в одну строчку
+    }
+    outputFileWriter.close();
+  }
 }
